@@ -2,7 +2,9 @@ package com.example.restexample
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.widget.ImageView
 import android.widget.Toast
+import com.squareup.picasso.Picasso
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -10,6 +12,7 @@ import retrofit2.Response
 class MainActivity : AppCompatActivity() {
 
     var api: MyApi? = null
+    lateinit var imgWeb: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,6 +21,9 @@ class MainActivity : AppCompatActivity() {
         initializeApi()
         callGetPosts()
         callSetPosts()
+
+        imgWeb = findViewById(R.id.imgWeb)
+        loadImage()
     }
 
     private fun initializeApi() {
@@ -48,6 +54,14 @@ class MainActivity : AppCompatActivity() {
                 response.body() //En este caso devuelve un objeto del tipo Post
             }
         })
+    }
+
+    private fun loadImage() {
+        Picasso.get().isLoggingEnabled = true
+        Picasso
+            .get()
+            .load("http://i.imgur.com/DvpvklR.png")
+            .into(imgWeb)
     }
 
 }
